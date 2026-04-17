@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
+#include "../include/libri.h"
+#include "libri.c"
+
 
 void CercaLibro()
 {
@@ -45,7 +48,10 @@ void CercaLibro()
 
 void gestioneLibri()
 {
+    Libro* lista_libri = crea_lista();
+    
     int scelta=0;
+    int id=0;
 
     do
     {
@@ -62,7 +68,16 @@ void gestioneLibri()
         switch (scelta)
         {
         case 1:
-            /* code */
+            printf("Inserisci l'id del libro\n");
+            scanf("%d",&id);
+            getchar();
+            if(cercalibri_id()==0)
+            {
+                
+            }
+            else
+                printf("L'id è gia stato usato");
+
             break;
         case 2:
             /* code */
@@ -205,6 +220,7 @@ void statistica()
 int main()
 {
     int scelta=0;
+
     
     
     do
