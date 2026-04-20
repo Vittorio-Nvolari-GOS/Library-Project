@@ -108,8 +108,8 @@ void gestioneUtenti()
         printf("______Menu______\n");
         printf("1. Registra un nuovo utente\n");
         printf("2. Elimina un utente\n");
-        printf("3. Elimina un libro\n");
-        printf("4. Cerca un libro\n");
+        printf("3. Visualizza utenti\n");
+        printf("4. Visualizza \n");
         printf("0. Exit\n");
         printf("____________________\n");
         scanf("%d",&scelta);
@@ -219,10 +219,9 @@ void statistica()
 
 int main()
 {
+    Lista* Libri=crea_lista;
     int scelta=0;
-
-    
-    
+       
     do
     {
         printf("____Menu_____");

@@ -13,7 +13,7 @@ typedef struct Libro
     int anno;
     float prezzo;
     struct Libro* next;
-    struct Libro* next_playlist;
+    struct Libro* next_playlist;    
 }Libro;
     
 
@@ -25,6 +25,34 @@ typedef struct Lista
 
 void carica_lista()
 {
+    struct Persona lista[MAX];
+    int n = 0;                                                                
+
+    FILE *f = fopen("dati.csv", "r");                                         
+    if (f == NULL) 
+    {
+        printf("Errore apertura file\n");
+        return 1;                                                             
+    }
+                                                                            
+    // legge riga per riga e salva nella lista
+    while (n < MAX && fscanf(f, "%49[^,],%d,%49[^\n]\n",
+                            lista[n].nome,                                   
+                            &lista[n].eta,
+                            lista[n].citta) == 3) 
+                            {                          
+        n++;                                                                  
+    }
+                                                                            
+    fclose(f);  
+
+    // stampa la lista caricata
+    for (int i = 0; i < n; i++) {
+        printf("%s - %d - %s\n", lista[i].nome, lista[i].eta, lista[i].citta);
+    }
+                                                                            
+    return 0;   
+  }
 
 }
 
@@ -36,14 +64,15 @@ Lista* crea_lista()
     return l;
 }
 
-void cercaLibri_ID()
+void cercaLibri_ID(Lista *l,int _id)
 {
     Libro* temp = l->testa;
     int trovata = 0;
-    printf("Ricerca canzoni dell'artista %s.......\n", artista);
-    while (temp != NULL) {
-        if (strcmp(temp->artista, artista) == 0) {
-            stampa_canzone(temp);
+    printf("Ricerca dei libri con id: %s.......\n", temp->id);
+    while (temp != NULL) 
+    {
+        if (strcmp(temp->id, _id) == 0) 
+        {
             trovata = 1;
         }
         temp = temp->next;
