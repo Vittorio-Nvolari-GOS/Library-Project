@@ -15,19 +15,42 @@ typedef struct Libro
     struct Libro* next;
     struct Libro* next_playlist;    
 }Libro;
-    
-void ScriviSuFile(Libro *lista)
-{
-    
-}
 
 typedef struct Lista 
 {
     Libro* testa;
+    Libro* coda;
     int lunghezza;
 } Lista;
+    
+void ScriviSuFile(Lista *lista)
+{
 
-void carica_lista()
+    FILE *f = fopen("libri.csv", "w");
+    if (f == NULL) {
+        printf("Errore apertura file\n");
+        return;
+    }
+
+    Libro *temp = lista->testa;
+    while (temp != NULL)
+    {
+        fprintf(f, "%d,%s,%s,%s,%d,%.2f\n",
+                temp->id,
+                temp->titolo,
+                temp->autore,
+                temp->genere,
+                temp->anno,
+                temp->prezzo);
+        temp = temp->next;
+    }
+
+    fclose(f);
+
+}
+
+
+void carica_lista(Lista *l)
 {
 
     FILE *f = fopen("../data/libri.csv", "r");
