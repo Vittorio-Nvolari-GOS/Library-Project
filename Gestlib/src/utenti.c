@@ -11,6 +11,33 @@ typedef struct Lista
 void carica_lista()
 {
 
+    struct Persona lista[MAX];
+    int n = 0;                                                                
+
+    FILE *f = fopen("utenti.csv", "r");                                         
+    if (f == NULL) 
+    {
+        printf("Errore apertura file\n");
+        return 1;                                                             
+    }
+                                                                            
+    // legge riga per riga e salva nella lista
+    while (n < MAX && fscanf(f, "%49[^,],%d,%49[^\n]\n",
+                            lista[n].nome,                                   
+                            &lista[n].eta == 2) 
+                            {                          
+        n++;                                                                  
+    }
+                                                                            
+    fclose(f);  
+
+    // stampa la lista caricata
+    for (int i = 0; i < n; i++) {
+        printf("%s - %d\n", lista[i].nome, lista[i].eta);
+    }
+                                                                            
+    return 0;  
+
 }
 
 Lista* crea_lista() 
@@ -50,7 +77,7 @@ void set_utente(Utente *c, int id)
 {
     
     c->id = id;
-    printf("---- Inserimento canzone con id %d ----\n", c->id);
+    printf("---- Inserimento utente con id %d ----\n", c->id);
     printf("Inserisci nome : \n");
     fgets(c->nome, 100, stdin);
     printf("Inserisci cognome : \n");
@@ -65,3 +92,30 @@ void inserisci_Libro_lista(Lista *l) {
     l->testa = c;
     l->lunghezza++;
 }
+
+void cancella_canzone_playlist(Utente *c) {
+    int id;
+    printf("Inserisci id dell'utente che si desidera eliminare: ");
+    scanf("%d", &id);
+    getchar();
+
+    if (c->testa == NULL) return;
+    
+    // Se l'elemento è in testa
+    if (c->testa->id == id) {
+        if (c->lunghezza == 1) {
+            free(c->testa);
+            c->testa = NULL;
+        } else {
+            Utente* current = c->testa;
+            while (current->next != playlist->testa) {
+                current = current->next;
+            }
+            Utente* temp = c->testa;
+            c->testa = c->testa->next;
+            current->next = c->testa;
+            free(temp);
+        }
+        c->lunghezza--;
+        return;
+    }
