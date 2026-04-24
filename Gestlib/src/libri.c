@@ -15,44 +15,72 @@ typedef struct Libro
     struct Libro* next;
     struct Libro* next_playlist;    
 }Libro;
-    
 
 typedef struct Lista 
 {
     Libro* testa;
+    Libro* coda;
     int lunghezza;
 } Lista;
-
-void carica_lista()
+    
+void ScriviSuFile(Lista *lista)
 {
-    struct Persona lista;
-    int n = 0;                                                                
 
-    FILE *f = fopen("dati.csv", "r");                                         
-    if (f == NULL) 
-    {
+    FILE *f = fopen("libri.csv", "w");
+    if (f == NULL) {
         printf("Errore apertura file\n");
-        return 1;                                                             
+        return;
     }
-                                                       
-    // legge riga per riga e salva nella lista
-    while (n < fscanf(f, "%49[^,],%d,%49[^\n]\n",
-                            lista[n].nome,                                   
-                            &lista[n].eta,
-                            lista[n].citta) == 3) 
-                            {                          
-        n++;                                                                  
-    }
-                                                                            
-    fclose(f);  
 
-    // stampa la lista caricata
-    for (int i = 0; i < n; i++) {
-        printf("%s - %d - %s\n", lista[i].nome, lista[i].eta, lista[i].citta);
+    Libro *temp = lista->testa;
+    while (temp != NULL)
+    {
+        fprintf(f, "%d,%s,%s,%s,%d,%.2f\n",
+                temp->id,
+                temp->titolo,
+                temp->autore,
+                temp->genere,
+                temp->anno,
+                temp->prezzo);
+        temp = temp->next;
     }
-                                                                            
-    return 0;   
-  }
+
+    fclose(f);
+
+}
+
+
+void carica_lista(Lista *l)
+{
+
+    FILE *f = fopen("../data/libri.csv", "r");
+    if (f == NULL) {
+        printf("Errore apertura file\n");
+        return;
+    }
+
+    int id, anno;
+    float prezzo;
+    char titolo[100], autore[100], genere[100];
+
+    // formato CSV: id,titolo,autore,genere,anno,prezzo
+    while (fscanf(f, "%d,%99[^,],%99[^,],%99[^,],%d,%f\n",
+                  &id, titolo, autore, genere, &anno, &prezzo) == 6)
+    {
+        Libro *c = (Libro*)malloc(sizeof(Libro));
+        c->id = id;
+        c->anno = anno;
+        c->prezzo = prezzo;
+        strcpy(c->titolo, titolo);
+        strcpy(c->autore, autore);
+        strcpy(c->genere, genere);
+        c->next = l->testa;
+        c->next_playlist = NULL;
+        l->testa = c;
+        l->lunghezza++;
+    }
+
+    fclose(f);
 
 }
 
@@ -83,7 +111,6 @@ void cercaLibri_ID(Lista *l,int _id)
 
 void set_Libro(Libro *c,int id) 
 {
-    
     c->id = id;
     printf("---- Inserimento canzone con id %d ----\n", c->id);
     printf("Inserisci titolo : \n");
@@ -102,7 +129,7 @@ void set_Libro(Libro *c,int id)
 
 void inserisci_Libro_lista(Lista *l) {
     Libro* c = (Libro*)malloc(sizeof(Libro));
-    set_canzone(c);
+    set_Libro(c);
     c->next = l->testa;
     l->testa = c;
     l->lunghezza++;

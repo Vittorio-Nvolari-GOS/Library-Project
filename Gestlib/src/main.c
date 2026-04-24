@@ -89,6 +89,7 @@ void gestioneLibri()
             /* code */
             break;
         case 0:
+            
             break;
         
         default:
@@ -219,7 +220,8 @@ void statistica()
 
 int main()
 {
-    Lista* Libri=crea_lista;
+    Lista* Libri=crea_lista();
+    crea_lista(Libri);
     int scelta=0;
        
     do
@@ -256,6 +258,6 @@ int main()
             break;
         }
 
-    }while()
+    }while(scelta!=0);
 }
 
