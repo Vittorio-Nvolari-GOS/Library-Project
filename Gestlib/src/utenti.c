@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../include/utenti.h"
@@ -7,6 +8,15 @@ typedef struct Lista
     Utente* testa;
     int lunghezza;
 } Lista;
+
+typedef struct Utente
+{
+    int id=0;
+    char nome[100];
+    char cognome[100];
+    struct Utente* next;
+    struct Utente* next_playlist;
+}Utente;
 
 void carica_lista()
 {
@@ -48,15 +58,6 @@ Lista* crea_lista()
     return l;
 }
 
-typedef struct Utente
-{
-    int id;
-    char nome[100];
-    char cognome[100];
-    struct Utente* next;
-    struct Utente* next_playlist;
-}Utente;
-
 void cercaUtenti_ID(Utente *c)
 {
     Utente* temp = l->testa;
@@ -77,6 +78,7 @@ void set_utente(Utente *c, int id)
 {
     
     c->id = id;
+    id=id+1;
     printf("---- Inserimento utente con id %d ----\n", c->id);
     printf("Inserisci nome : \n");
     fgets(c->nome, 100, stdin);

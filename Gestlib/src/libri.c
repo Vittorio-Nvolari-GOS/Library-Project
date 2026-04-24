@@ -25,7 +25,7 @@ typedef struct Lista
 
 void carica_lista()
 {
-    struct Persona lista[MAX];
+    struct Persona lista;
     int n = 0;                                                                
 
     FILE *f = fopen("dati.csv", "r");                                         
@@ -34,9 +34,9 @@ void carica_lista()
         printf("Errore apertura file\n");
         return 1;                                                             
     }
-                                                                            
+                                                       
     // legge riga per riga e salva nella lista
-    while (n < MAX && fscanf(f, "%49[^,],%d,%49[^\n]\n",
+    while (n < fscanf(f, "%49[^,],%d,%49[^\n]\n",
                             lista[n].nome,                                   
                             &lista[n].eta,
                             lista[n].citta) == 3) 
