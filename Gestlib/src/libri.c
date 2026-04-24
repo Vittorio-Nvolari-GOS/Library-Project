@@ -99,7 +99,7 @@ void cercaLibri_ID(Lista *l,int _id)
     printf("Ricerca dei libri con id: %s.......\n", temp->id);
     while (temp != NULL) 
     {
-        if (strcmp(temp->id, _id) == 0) 
+        if (temp->id == _id) 
         {
             trovata = 1;
         }
@@ -127,10 +127,48 @@ void set_Libro(Libro *c,int id)
     getchar();
 }
 
-void inserisci_Libro_lista(Lista *l) {
+void inserisci_Libro_lista(Lista *l) 
+{
     Libro* c = (Libro*)malloc(sizeof(Libro));
     set_Libro(c);
     c->next = l->testa;
     l->testa = c;
     l->lunghezza++;
+}
+
+void stampLista(Lista *l)
+{
+    
+}
+
+void cercaTitolo(Lista *l,char _titolo)
+{
+    Libro* temp = l->testa;
+    int trovata = 0;
+    printf("Ricerca dei libri con id: %s.......\n", temp->id);
+    while (temp != NULL) 
+    {
+        if (strcmp(temp->titolo == _titolo)==0) 
+        {
+            trovata = 1;
+            
+        }
+        temp = temp->next;
+    }
+    if(trovata == 0) 
+        return 0;
+}
+
+
+
+
+void libera_memoria(Lista* l) 
+{
+    Libro* temp = l->testa;
+    while (temp != NULL) {
+        Libro* l = temp;
+        temp = temp->next;
+        free(temp);
+    }
+    free(l);
 }
