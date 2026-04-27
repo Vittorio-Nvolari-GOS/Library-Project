@@ -7,9 +7,13 @@
 #include "libri.c"
 
 
-void CercaLibro()
+void CercaLibro(Lista _lib)
 {
     int scelta=0;
+    char titolo[100];
+    char genere[100];
+    char autore[100];
+
 
     do
     {
@@ -25,7 +29,14 @@ void CercaLibro()
         switch (scelta)
         {
         case 1:
-            /* code */
+            printf("Inserisci il titolo del libro che cercavi\n");
+            fgets(titolo,100,stdin);
+            if (cercaTitolo(_lib,titolo)==1)
+            {
+                printf("")
+            }
+            
+            
             break;
         case 2:
             /* code */
@@ -46,7 +57,7 @@ void CercaLibro()
     
 }
 
-void gestioneLibri()
+void gestioneLibri(Lista _libri)
 {
     Libro* lista_libri = crea_lista();
     
@@ -86,7 +97,7 @@ void gestioneLibri()
             /* code */
             break;
         case 4:
-            /* code */
+            CercaLibro(_libri);
             break;
         case 0:
             
@@ -221,7 +232,7 @@ void statistica()
 int main()
 {
     Lista* Libri=crea_lista();
-    crea_lista(Libri);
+    carica_lista(Libri);
     int scelta=0;
        
     do
@@ -239,7 +250,7 @@ int main()
         switch (scelta)
         {
         case 1:
-            gestioneLibri();
+            gestioneLibri(Libri);
             break;
         case 2:
             gestioneUtenti();
