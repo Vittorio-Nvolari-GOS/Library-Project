@@ -3,20 +3,29 @@
 #include <string.h>
 #include "../include/utenti.h"
 
+typedef struct Utente
+{
+    int id=0;
+    char nome[100];
+    char cognome[100];
+    char sesso[1];
+    struct Utente* next;
+    struct Utente* next_playlist;
+}Utente;
+
 typedef struct Lista 
 {
     Utente* testa;
     int lunghezza;
 } Lista;
 
-typedef struct Utente
+Lista* crea_lista() 
 {
-    int id=0;
-    char nome[100];
-    char cognome[100];
-    struct Utente* next;
-    struct Utente* next_playlist;
-}Utente;
+    Lista *l=(Lista*)malloc(sizeof(Lista));
+    l->lunghezza=0;
+    l->testa=NULL;
+    return l;
+}
 
 void carica_lista()
 {
@@ -32,30 +41,21 @@ void carica_lista()
     }
                                                                             
     // legge riga per riga e salva nella lista
-    while (n < MAX && fscanf(f, "%49[^,],%d,%49[^\n]\n",
-                            lista[n].nome,                                   
-                            &lista[n].eta == 2) 
-                            {                          
-        n++;                                                                  
+    // formato CSV: id,nome,cognome,sesso
+    while (fscanf(f, "%d,%99[^,],%99[^,],%99[^,]\n",
+                  &id, nome, cognome, sesso) == 4){
+        n++;
     }
-                                                                            
+
     fclose(f);  
 
     // stampa la lista caricata
     for (int i = 0; i < n; i++) {
         printf("%s - %d\n", lista[i].nome, lista[i].eta);
     }
-                                                                            
+    
     return 0;  
 
-}
-
-Lista* crea_lista() 
-{
-    Lista *l=(Lista*)malloc(sizeof(Lista));
-    l->lunghezza=0;
-    l->testa=NULL;
-    return l;
 }
 
 void cercaUtenti_ID(Utente *c)
@@ -76,14 +76,15 @@ void cercaUtenti_ID(Utente *c)
 
 void set_utente(Utente *c, int id) 
 {
-    
-    c->id = id;
-    id=id+1;
+    c->id+1;
     printf("---- Inserimento utente con id %d ----\n", c->id);
     printf("Inserisci nome : \n");
     fgets(c->nome, 100, stdin);
     printf("Inserisci cognome : \n");
     fgets(c->cognome, 100, stdin);
+    getchar();
+    printf("inserire il sesso: \n");
+    fgets(c->sesso, 1, stdin);
     getchar();
 }
 
@@ -95,7 +96,7 @@ void inserisci_Libro_lista(Lista *l) {
     l->lunghezza++;
 }
 
-void cancella_canzone_playlist(Utente *c) {
+void cancella_utente(Utente *c) {
     int id;
     printf("Inserisci id dell'utente che si desidera eliminare: ");
     scanf("%d", &id);

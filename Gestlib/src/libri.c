@@ -112,7 +112,7 @@ void cercaLibri_ID(Lista *l,int _id)
 void set_Libro(Libro *c,int id) 
 {
     c->id = id;
-    printf("---- Inserimento canzone con id %d ----\n", c->id);
+    printf("---- Inserimento titolo con id %d ----\n", c->id);
     printf("Inserisci titolo : \n");
     fgets(c->titolo, 100, stdin);
     printf("Inserisci autore : \n");
