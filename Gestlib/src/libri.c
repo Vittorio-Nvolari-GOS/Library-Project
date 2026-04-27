@@ -12,6 +12,7 @@ typedef struct Libro
     char genere[100];
     int anno;
     float prezzo;
+    int copie_disponibili;
     struct Libro* next;
     struct Libro* next_playlist;    
 }Libro;
@@ -22,6 +23,18 @@ typedef struct Lista
     Libro* coda;
     int lunghezza;
 } Lista;
+
+void stampa_libro(Libro* libro) {
+    printf("ID: %d\n", libro->id);
+    printf("Titolo: %s", libro->titolo);
+    printf("Autore: %s", libro->autore);
+    printf("Genere: %s", libro->genere);
+    printf("Anno: %d\n", libro->anno);
+    printf("Prezzo: %.2f\n", libro->prezzo);
+    printf("Copie disponibili: %d\n", libro->copie_disponibili);
+}
+
+void carica_lista()
     
 void ScriviSuFile(Lista *lista)
 {
@@ -127,7 +140,7 @@ void selezionaID(Lista* l)
 void set_Libro(Libro *c,int id) 
 {
     c->id = id;
-    printf("---- Inserimento canzone con id %d ----\n", c->id);
+    printf("---- Inserimento libro con id %d ----\n", c->id);
     printf("Inserisci titolo : \n");
     fgets(c->titolo, 100, stdin);
     printf("Inserisci autore : \n");
@@ -137,8 +150,11 @@ void set_Libro(Libro *c,int id)
     printf("inserisci anno di pubblicazione: \n");
     scanf("%d", &c->anno);
     getchar();
-    printf("Inserisci prezzo del libro");
+    printf("Inserisci prezzo del libro: ");
     scanf("%f",&c->prezzo);
+    getchar();
+    printf("Inserisci numero di copie disponibili: ");
+    scanf("%d",&c->copie_disponibili);
     getchar();
 }
 

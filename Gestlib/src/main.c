@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include "../include/libri.h"
 #include "libri.c"
+#include "prestiti.c"
 
 
 void CercaLibro(Lista* _lib)
@@ -174,7 +175,7 @@ void gestionePrestiti()
             /* code */
             break;
         case 3:
-            /* code */
+            controllaPrestitiScaduti();
             break;
         case 0:
             break;
@@ -233,7 +234,11 @@ int main()
     Lista* Libri=crea_lista();
     carica_lista(Libri);
     int scelta=0;
-       
+
+    Lista* l = crea_lista();
+    lista_prestiti = crea_lista_prestiti();
+    
+    
     do
     {
         printf("____Menu_____");
