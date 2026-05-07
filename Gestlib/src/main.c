@@ -5,9 +5,10 @@
 #include <stdio.h>
 #include "../include/libri.h"
 #include "libri.c"
+#include "prestiti.c"
 
 
-void CercaLibro(Lista _lib)
+void CercaLibro(Lista* _lib)
 {
     int scelta=0;
     char titolo[100];
@@ -31,12 +32,7 @@ void CercaLibro(Lista _lib)
         case 1:
             printf("Inserisci il titolo del libro che cercavi\n");
             fgets(titolo,100,stdin);
-            if (cercaTitolo(_lib,titolo)==1)
-            {
-                printf("")
-            }
-            
-            
+            cercaTitolo(_lib,titolo);
             break;
         case 2:
             /* code */
@@ -57,7 +53,7 @@ void CercaLibro(Lista _lib)
     
 }
 
-void gestioneLibri(Lista _libri)
+void gestioneLibri(Lista* _libri)
 {
     Libro* lista_libri = crea_lista();
     
@@ -71,6 +67,7 @@ void gestioneLibri(Lista _libri)
         printf("2. Modifica un libro\n");
         printf("3. Elimina un libro\n");
         printf("4. Cerca un libro\n");
+        printf("5. Stampa lista libri");
         printf("0. Exit\n");
         printf("____________________\n");
         scanf("%d",&scelta);
@@ -98,6 +95,9 @@ void gestioneLibri(Lista _libri)
             break;
         case 4:
             CercaLibro(_libri);
+            break;
+        case 5:
+            stampLista(_libri);
             break;
         case 0:
             
@@ -175,7 +175,7 @@ void gestionePrestiti()
             /* code */
             break;
         case 3:
-            /* code */
+            controllaPrestitiScaduti();
             break;
         case 0:
             break;
@@ -234,7 +234,11 @@ int main()
     Lista* Libri=crea_lista();
     carica_lista(Libri);
     int scelta=0;
-       
+
+    Lista* l = crea_lista();
+    lista_prestiti = crea_lista_prestiti();
+    
+    
     do
     {
         printf("____Menu_____");

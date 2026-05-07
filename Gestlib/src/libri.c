@@ -12,6 +12,7 @@ typedef struct Libro
     char genere[100];
     int anno;
     float prezzo;
+    int copie_disponibili;
     struct Libro* next;
     struct Libro* next_playlist;    
 }Libro;
@@ -22,6 +23,18 @@ typedef struct Lista
     Libro* coda;
     int lunghezza;
 } Lista;
+
+void stampa_libro(Libro* libro) {
+    printf("ID: %d\n", libro->id);
+    printf("Titolo: %s", libro->titolo);
+    printf("Autore: %s", libro->autore);
+    printf("Genere: %s", libro->genere);
+    printf("Anno: %d\n", libro->anno);
+    printf("Prezzo: %.2f\n", libro->prezzo);
+    printf("Copie disponibili: %d\n", libro->copie_disponibili);
+}
+
+void carica_lista()
     
 void ScriviSuFile(Lista *lista)
 {
@@ -109,10 +122,25 @@ void cercaLibri_ID(Lista *l,int _id)
         return 0;
 }
 
+void selezionaID(Lista* l)
+{
+    Libro* temp = l->testa;
+    int trovata = 0;
+    while (temp != NULL) 
+    {
+        if (temp->id == _id) 
+        {
+            trovata = 1;
+        }
+        temp = temp->next;
+    }
+
+}
+
 void set_Libro(Libro *c,int id) 
 {
     c->id = id;
-    printf("---- Inserimento titolo con id %d ----\n", c->id);
+    printf("---- Inserimento libro con id %d ----\n", c->id);
     printf("Inserisci titolo : \n");
     fgets(c->titolo, 100, stdin);
     printf("Inserisci autore : \n");
@@ -122,8 +150,11 @@ void set_Libro(Libro *c,int id)
     printf("inserisci anno di pubblicazione: \n");
     scanf("%d", &c->anno);
     getchar();
-    printf("Inserisci prezzo del libro");
+    printf("Inserisci prezzo del libro: ");
     scanf("%f",&c->prezzo);
+    getchar();
+    printf("Inserisci numero di copie disponibili: ");
+    scanf("%d",&c->copie_disponibili);
     getchar();
 }
 
@@ -138,6 +169,20 @@ void inserisci_Libro_lista(Lista *l)
 
 void stampLista(Lista *l)
 {
+    Libro* temp = l->testa;    
+    while (temp != NULL) 
+    {
+        printf("Libro trovato!!!");
+        printf("-----------------------------\n");
+        printf("Titolo: %s\n",temp->titolo);
+        printf("Autore: %s\n",temp->autore);
+        printf("Genere: %s\n",temp->genere);
+        printf("Anno: %d\n",temp->anno);
+        printf("Prezzo: %f\n",temp->prezzo);   
+        printf("------------------------------\n");                     
+        
+        temp = temp->next;
+    }
     
 }
 
@@ -151,7 +196,14 @@ void cercaTitolo(Lista *l,char _titolo)
         if (strcmp(temp->titolo == _titolo)==0) 
         {
             trovata = 1;
-            
+            printf("Libro trovato!!!");
+            printf("-----------------------------\n");
+            printf("Titolo: %s\n",temp->titolo);
+            printf("Autore: %s\n",temp->autore);
+            printf("Genere: %s\n",temp->genere);
+            printf("Anno: %d\n",temp->anno);
+            printf("Prezzo: %f\n",temp->prezzo);   
+            printf("------------------------------\n");                     
         }
         temp = temp->next;
     }
@@ -159,7 +211,56 @@ void cercaTitolo(Lista *l,char _titolo)
         return 0;
 }
 
+void eliinaLibro(Lista* l)
+{
+    int scelta=0;
+    int id=0;
+    char titolo[100];
+    char autore[100];
+    char genere
+    do
+    {
+        printf("_____Menu Eliminazioe______");
+        printf("1. Selezioba libro per ID");
+        printf("2. Seleziona libro per Titolo");
+        printf("3. Selezioba libro per Autore");
+        printf("4. Seleziona librp per Genere");
+        printf("5. Stampa lista libri");
+        printf("0. Exit");
+        printf("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
+        
+        switch (scelta)
+        {
+        case 1:
+            printf("Inserisci l'id del libro da eliminare\n");
+            scanf("%d",&id);
+            getchar();
+            break;
+        case 2:
+            /* code */
+            break;
+        case 3:
+            /* code */
+            break;
+        case 4:
+            /* code */
+            break;
+        case 5:
+            stampLista(l);
+            break;
+        case 0:
+            break;
+        
+        
+        default:
+            printf("Seleione non dispoibile");
+            break;
+        }
+    } while (scelta!=0);
+    
+    
 
+}
 
 
 void libera_memoria(Lista* l) 
