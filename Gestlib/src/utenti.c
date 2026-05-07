@@ -64,8 +64,8 @@ void cercaUtenti_ID(Utente *c)
     int trovata = 0;
     printf("Ricerca prestito di: %s.......\n", c->nome);
     while (temp != NULL) {
-        if (strcmp(temp->nome, artista) == 0) {
-            stampa_canzone(temp);
+        if (strcmp(temp->nome, c->nome) == 0) {
+            stampa_libreria(temp);
             trovata = 1;
         }
         temp = temp->next;
@@ -122,3 +122,10 @@ void cancella_utente(Utente *c) {
         c->lunghezza--;
         return;
     }
+}
+
+void stampa_libreria(Utente *c, Lista *l){
+
+
+
+}
