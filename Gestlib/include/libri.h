@@ -1,27 +1,3 @@
-#ifndef LIBRI_H
-#define LIBRI_H
-
-typedef struct Libro
-{
-    int id;
-    char titolo[100];
-    char autore[100];
-    char genere[100];
-    int anno;
-    float prezzo;
-    int copie_disponibili;
-    struct Libro* next;
-    struct Libro* prev;
-    struct Libro* next_playlist;
-} Libro;
-
-typedef struct Lista
-{
-    Libro* testa;
-    Libro* coda;
-    int lunghezza;
-} Lista;
-
 /** Questa funzione stampa a video tutti i campi di un libro.
  * @param Libro* puntatore al libro da stampare
  * @return non restituisce nulla
@@ -125,4 +101,3 @@ void modificalibro(Lista* );
  */
 void libera_memoria(Lista* );
 
-#endif
