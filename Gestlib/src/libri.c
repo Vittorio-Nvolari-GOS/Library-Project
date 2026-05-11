@@ -374,7 +374,32 @@ void modificalibro(Lista* l)
     printf("Inseisci l'id del libro da modificare\n");
     scanf("%d",&id);
     getchar();
-
+    while (temp!=NULL)
+    {
+        if(temp->id==id)
+        {
+            temp->id = id;
+            printf("---- Inserimento libro con id %d ----\n", c->id);
+            printf("Inserisci titolo : \n");
+            fgets(c->titolo, 100, stdin);
+            printf("Inserisci autore : \n");
+            fgets(c->autore, 100, stdin);
+            printf("inserisci il genere: \n");
+            fgets(c->genere,100,stdin);
+            printf("inserisci anno di pubblicazione: \n");
+            scanf("%d", &c->anno);
+            getchar();
+            printf("Inserisci prezzo del libro: ");
+            scanf("%f",&c->prezzo);
+            getchar();
+            printf("Inserisci numero di copie disponibili: ");
+            scanf("%d",&c->copie_disponibili);
+            getchar();
+        }
+        else
+            printf("Libro non trovato");
+    }
+    
     
     
 }

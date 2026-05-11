@@ -88,7 +88,7 @@ void gestioneLibri(Lista* _libri)
  
             break;
         case 2:
-            /* code */
+            modificalibro(_libri);
             break;
         case 3:
             eliminaLibro(_libri);
@@ -100,7 +100,7 @@ void gestioneLibri(Lista* _libri)
             stampLista(_libri);
             break;
         case 0:
-            
+            ScriviSuFile(_libri);
             break;
         
         default:
