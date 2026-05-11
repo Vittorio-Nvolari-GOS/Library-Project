@@ -88,7 +88,7 @@ void set_utente(Utente *c, int id)
     getchar();
 }
 
-void inserisci_Libro_lista(Lista *l) {
+void inserisci_utente_lista(Lista *l) {
     Utente* c = (Utente*)malloc(sizeof(Libro));
     set_utente(c);
     c->next = l->testa;
@@ -126,6 +126,17 @@ void cancella_utente(Utente *c) {
 
 void stampa_libreria(Utente *c, Lista *l){
 
-
-
+    Utente* temp = l->testa;    
+    while (temp != NULL) 
+    {
+        printf("Utente trovato!!!");
+        printf("-----------------------------\n");
+        printf("Nome: %s\n",temp->nome);
+        printf("Cognome: %s\n",temp->cognome);
+        printf("Sesso: %s\n",temp->sesso);
+        printf("------------------------------\n");                     
+        
+        temp = temp->next;
+    }
+    
 }
