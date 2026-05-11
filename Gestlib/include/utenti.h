@@ -1,38 +1,41 @@
-/*
+/** Questa funzione crea e inizializza una nuova lista vuota di utenti.
+ * @return restituisce il puntatore alla nuova lista creata
+ */
+Lista* crea_lista();
 
-    *funzione che serve a ricercare un utente all'interno del database degli utenti salvati.
-    *@param Utente C utilizzata per il controllo della presenza all'interno del database di un utente.
-    *Utente temp variabile utilizzata per la comparazione con la varaibile C.
+/** Questa funzione carica gli utenti da file CSV inserendoli nella lista.
+ * @return non restituisce nulla
+ */
+void carica_lista();
 
-*/
-void cercaUtenti_ID(Utente *c);
+/** Questa funzione cerca un utente all'interno della lista in base al nome.
+ * @param Utente* puntatore all'utente da cercare
+ * @return non restituisce nulla
+ */
+void cercaUtenti_ID(Utente* );
 
-/*
+/** Questa funzione richiede all'utente i dati e li assegna alla struttura.
+ * @param Utente* puntatore all'utente da inizializzare
+ * @param int identificativo da assegnare all'utente
+ * @return non restituisce nulla
+ */
+void set_utente(Utente* , int );
 
-*
+/** Questa funzione inserisce un nuovo utente all'interno della lista.
+ * @param Lista* puntatore alla lista in cui inserire l'utente
+ * @return non restituisce nulla
+ */
+void inserisci_Libro_lista(Lista* );
 
-*/
-void set_utente(Utente *c, int id);
+/** Questa funzione elimina un utente dalla lista in base all'ID inserito.
+ * @param Utente* puntatore alla lista degli utenti
+ * @return non restituisce nulla
+ */
+void cancella_utente(Utente* );
 
-/*
-
-    *funzione che serve per l'acquisizione dei vari dati degli utenti.
-    *@param Utente C utilizzata per l'acquisizione dei dati degli utenti.
-    @param int id
-
-*/
-void inserisci_Libro_lista(Lista *l):
-
-/*
-
-*
-
-*/
-void cancella_utente(Utente *c);
-
-/*
-
-*
-
-*/
-void stampa_libreria(Utente *c, Lista *l);
+/** Questa funzione stampa a video i dati di un utente e la sua libreria associata.
+ * @param Utente* puntatore all'utente da stampare
+ * @param Lista* puntatore alla lista dei libri associati
+ * @return non restituisce nulla
+ */
+void stampa_libreria(Utente* , Lista* );
