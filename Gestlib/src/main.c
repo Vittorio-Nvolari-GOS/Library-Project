@@ -81,17 +81,17 @@ void gestioneLibri(Lista* _libri)
             getchar();
             if(cercalibri_id()==0)
             {
-                
+                inserisci_Libro_lista(_libri,id);
             }
             else
                 printf("L'id è gia stato usato");
-
+ 
             break;
         case 2:
-            /* code */
+            modificalibro(_libri);
             break;
         case 3:
-            /* code */
+            eliminaLibro(_libri);
             break;
         case 4:
             CercaLibro(_libri);
@@ -100,7 +100,7 @@ void gestioneLibri(Lista* _libri)
             stampLista(_libri);
             break;
         case 0:
-            
+            ScriviSuFile(_libri);
             break;
         
         default:
