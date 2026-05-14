@@ -6,6 +6,9 @@
 #include "../include/libri.h"
 #include "libri.c"
 #include "prestiti.c"
+#include "../include/utenti.h"
+#include "utenti.c"
+#include "../include/prestiti.h"
 
 
 void CercaLibro(Lista* _lib)
@@ -35,10 +38,14 @@ void CercaLibro(Lista* _lib)
             cercaTitolo(_lib,titolo);
             break;
         case 2:
-            /* code */
+            printf("Inserisci il genere del libro che cercavi\n");
+            fgets(autore,100,stdin);
+            stampaAutore(_lib,autore);
             break;
         case 3:
-            /* code */
+            printf("Inserisci il genere del libro che cercavi\n");
+            fgets(genere,100,stdin);
+            stampaGenere(_lib,genere);
             break;
         case 0:
             break;
