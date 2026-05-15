@@ -30,7 +30,7 @@ ListaPrestiti* crea_lista_prestiti() {
     return lp;
 }
 
-void nuovoprestito(){
+void nuovoprestito(Prestito *prestito, ListaPrestiti *lista_prestiti) {
     printf("utente che prende in prestito: \n");
     char utente[50];
     scanf("%s",utente);
@@ -84,7 +84,7 @@ void nuovoprestito(){
     }
 }
 
-void restituzionePrestiti(){
+void restituzionePrestiti(Prestito *prestito, ListaPrestiti *lista_prestiti) {
     printf("utente che restituisce: \n");
     char utente[50];
     scanf("%s",utente);
@@ -119,7 +119,7 @@ void restituzionePrestiti(){
     }
 }
 
-void controllaPrestitiScaduti() {
+void controllaPrestitiScaduti(ListaPrestiti *lista_prestiti, Lista *libri) {
     time_t ora_corrente = time(NULL);
     Prestito* temp = lista_prestiti->testa;
     while (temp != NULL) {
