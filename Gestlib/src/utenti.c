@@ -27,7 +27,7 @@ Lista* crea_lista()
     return l;
 }
 
-void carica_lista()
+void carica_lista_utenti(Lista* l)
 {
 
     struct Persona lista[MAX];
@@ -88,9 +88,9 @@ void set_utente(Utente *c, int id)
     getchar();
 }
 
-void inserisci_utente_lista(Lista *l) {
-    Utente* c = (Utente*)malloc(sizeof(Libro));
-    set_utente(c);
+void inserisci_utente_lista(Lista *l, int _id) {
+    Utente* c = (Utente*)malloc(sizeof(Utente));
+    set_utente(c, _id);
     c->next = l->testa;
     l->testa = c;
     l->lunghezza++;

@@ -120,42 +120,55 @@ void gestioneLibri(Lista* _libri)
 
 void gestioneUtenti()
 {
-    int scelta=0;
+    int scelta = 0;
+    int id = 0;
+    char nome[100];
 
-    do
-    {
+    Lista* utenti = crea_lista_utenti();
+    carica_lista_utenti(utenti);
+
+    do {
         printf("______Menu______\n");
         printf("1. Registra un nuovo utente\n");
         printf("2. Elimina un utente\n");
         printf("3. Visualizza utenti\n");
-        printf("4. Visualizza \n");
+        printf("4. Cerca utente per nome\n");
         printf("0. Exit\n");
         printf("____________________\n");
-        scanf("%d",&scelta);
+        scanf("%d", &scelta);
         getchar();
 
-        switch (scelta)
-        {
-        case 1:
-            /* code */
-            break;
-        case 2:
-            /* code */
-            break;
-        case 3:
-            /* code */
-            break;
-        case 4:
-            /* code */
-            break;
-        case 0:
-            break;
-        
-        default:
-            printf("La selezione è inesistente o non disponibile");
-            break;
+        switch (scelta) {
+            case 1:
+                printf("Inserisci l'id del nuovo utente: \n");
+                scanf("%d", &id);
+                getchar();
+                inserisci_utente_lista(utenti, id);
+                break;
+            case 2:
+                printf("Inserisci l'id dell'utente da eliminare: \n");
+                scanf("%d", &id);
+                getchar();
+                
+                cancella_utente(utenti, id);
+                break;
+            case 3:
+                stampa_utenti(utenti);
+                break;
+            case 4:
+                printf("Inserisci il nome da cercare: \n");
+                fgets(nome, sizeof(nome), stdin);
+                nome[strcspn(nome, "\n")] = '\0';
+                cercaUtenti_perNome(utenti, nome);
+                break;
+            case 0:
+                ScriviSuFile_utenti(utenti);
+                break;
+            default:
+                printf("La selezione è inesistente o non disponibile\n");
+                break;
         }
-    } while (scelta!=0);
+    } while (scelta != 0);
 }
 
 void gestionePrestiti()
