@@ -3,11 +3,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "../include/libri.h"
 #include "libri.c"
-#include "prestiti.c"
-#include "../include/utenti.h"
+#include "../include/libri.h"
 #include "utenti.c"
+#include "../include/utenti.h"
+#include "prestiti.c"
 #include "../include/prestiti.h"
 
 
@@ -149,7 +149,6 @@ void gestioneUtenti()
                 printf("Inserisci l'id dell'utente da eliminare: \n");
                 scanf("%d", &id);
                 getchar();
-                
                 cancella_utente(utenti, id);
                 break;
             case 3:
@@ -171,7 +170,7 @@ void gestioneUtenti()
     } while (scelta != 0);
 }
 
-void gestionePrestiti()
+void gestionePrestiti(Lista* _libri)
 {
     int scelta=0;
 
@@ -189,17 +188,17 @@ void gestionePrestiti()
         switch (scelta)
         {
         case 1:
-            /* code */
+            nuovoprestito(lista_prestiti);
             break;
         case 2:
-            /* code */
+            restituzionePrestiti(NULL, lista_prestiti);
             break;
         case 3:
-            controllaPrestitiScaduti();
+            controllaPrestitiScaduti(lista_prestiti, _libri);
             break;
         case 0:
             break;
-        
+
         default:
             printf("La selezione non è disponibile o inesistente\n");
             break;
@@ -280,7 +279,7 @@ int main()
             gestioneUtenti();
             break;
         case 3:
-            gestionePrestiti();
+            gestionePrestiti(Libri);
             break;
         case 4:
             statistica();

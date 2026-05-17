@@ -7,7 +7,6 @@ funzioni dei prestiti
 #include <stdio.h>
 #include <time.h>
 #include "../include/libri.h"
-#include "libri.c"
 
 typedef struct Prestito {
     char utente[50];
@@ -30,7 +29,7 @@ ListaPrestiti* crea_lista_prestiti() {
     return lp;
 }
 
-void nuovoprestito(Prestito *prestito, ListaPrestiti *lista_prestiti) {
+void nuovoprestito(ListaPrestiti *lista_prestiti) {
     printf("utente che prende in prestito: \n");
     char utente[50];
     scanf("%s",utente);
@@ -105,7 +104,7 @@ void restituzionePrestiti(Prestito *prestito, ListaPrestiti *lista_prestiti) {
         int id;
         scanf("%d",&id);
         getchar();
-        cercaLibri_ID(id);
+        cercaLibri_ID(lista_prestiti, id);
     }
     else if(strcmp(scelta,"autore")==0){
         printf("inserisci l'autore del libro: \n");

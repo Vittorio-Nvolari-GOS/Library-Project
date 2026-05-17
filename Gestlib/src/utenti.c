@@ -1,82 +1,86 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/utenti.h"
 
 typedef struct Utente
 {
-    int id=0;
+    int id;
     char nome[100];
     char cognome[100];
     char sesso[1];
     struct Utente* next;
-    struct Utente* next_playlist;
 }Utente;
 
-typedef struct Lista 
+typedef struct ListaUtenti 
 {
     Utente* testa;
     int lunghezza;
-} Lista;
+} ListaUtenti;
 
-Lista* crea_lista() 
+ListaUtenti* crea_lista_utenti() 
 {
-    Lista *l=(Lista*)malloc(sizeof(Lista));
+    ListaUtenti *l=(ListaUtenti*)malloc(sizeof(ListaUtenti));
     l->lunghezza=0;
     l->testa=NULL;
     return l;
 }
 
-void carica_lista_utenti(Lista* l)
+void carica_lista_utenti(ListaUtenti* l)
 {
 
-    struct Persona lista[MAX];
-    int n = 0;                                                                
-
-    FILE *f = fopen("utenti.csv", "r");                                         
-    if (f == NULL) 
-    {
+    FILE *f = fopen("../data/utenti.csv", "r");
+    if (f == NULL) {
         printf("Errore apertura file\n");
-        return 1;                                                             
-    }
-                                                                            
-    // legge riga per riga e salva nella lista
-    // formato CSV: id,nome,cognome,sesso
-    while (fscanf(f, "%d,%99[^,],%99[^,],%99[^,]\n",
-                  &id, nome, cognome, sesso) == 4){
-        n++;
+        return;
     }
 
-    fclose(f);  
+    int id;
+    char nome[100], cognome[100], sesso[2];
+
+    // formato CSV: id,nome,cognome,sesso
+    while (fscanf(f, "%d,%99[^,],%99[^,],%1[^\n]\n",
+                  &id, nome, cognome, sesso) == 4)
+    {
+        Utente *c = (Utente*)malloc(sizeof(Utente));
+        c->id = id;
+        strcpy(c->nome, nome);
+        strcpy(c->cognome, cognome);
+        strcpy(c->sesso, sesso);
+        c->next = l->testa;
+        l->testa = c;
+        l->lunghezza++;
+    }
+
+    fclose(f);
 
     // stampa la lista caricata
-    for (int i = 0; i < n; i++) {
-        printf("%s - %d\n", lista[i].nome, lista[i].eta);
+    Utente* temp = l->testa;
+    while (temp != NULL) {
+        printf("%s - %d\n", temp->nome, temp->id);
+        temp = temp->next;
     }
-    
-    return 0;  
 
 }
 
-void cercaUtenti_ID(Utente *c)
+void cercaUtenti_ID(ListaUtenti *l, Utente *c)
 {
     Utente* temp = l->testa;
     int trovata = 0;
     printf("Ricerca prestito di: %s.......\n", c->nome);
     while (temp != NULL) {
         if (strcmp(temp->nome, c->nome) == 0) {
-            stampa_libreria(temp);
+            stampa_libreria(temp, l);
             trovata = 1;
         }
         temp = temp->next;
     }
-    if(trovata == 0) 
-        return 0;
+    if(trovata == 0)
+        return;
 }
 
 void set_utente(Utente *c, int id) 
 {
-    c->id+1;
+    c->id+=1;
     printf("---- Inserimento utente con id %d ----\n", c->id);
     printf("Inserisci nome : \n");
     fgets(c->nome, 100, stdin);
@@ -88,7 +92,7 @@ void set_utente(Utente *c, int id)
     getchar();
 }
 
-void inserisci_utente_lista(Lista *l, int _id) {
+void inserisci_utente_lista(ListaUtenti *l, int _id) {
     Utente* c = (Utente*)malloc(sizeof(Utente));
     set_utente(c, _id);
     c->next = l->testa;
@@ -96,12 +100,8 @@ void inserisci_utente_lista(Lista *l, int _id) {
     l->lunghezza++;
 }
 
-void cancella_utente(Utente *c) {
-    int id;
-    printf("Inserisci id dell'utente che si desidera eliminare: ");
-    scanf("%d", &id);
-    getchar();
-
+void cancella_utente(ListaUtenti *c,int id) {
+   
     if (c->testa == NULL) return;
     
     // Se l'elemento è in testa
@@ -111,7 +111,7 @@ void cancella_utente(Utente *c) {
             c->testa = NULL;
         } else {
             Utente* current = c->testa;
-            while (current->next != playlist->testa) {
+            while (current->next != NULL) {
                 current = current->next;
             }
             Utente* temp = c->testa;
@@ -124,7 +124,7 @@ void cancella_utente(Utente *c) {
     }
 }
 
-void stampa_libreria(Utente *c, Lista *l){
+void stampa_libreria(Utente *c, ListaUtenti *l){
 
     Utente* temp = l->testa;    
     while (temp != NULL) 

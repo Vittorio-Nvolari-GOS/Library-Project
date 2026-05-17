@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../include/libri.h"
 
 
 typedef struct Libro
@@ -15,7 +14,6 @@ typedef struct Libro
     int copie_disponibili;
     struct Libro* next;
     struct Libro* prev;
-    struct Libro* next_playlist;
 }Libro;
 
 typedef struct Lista 
@@ -24,16 +22,6 @@ typedef struct Lista
     Libro* coda;
     int lunghezza;
 } Lista;
-
-void stampa_libro(Libro* libro) {
-    printf("ID: %d\n", libro->id);
-    printf("Titolo: %s", libro->titolo);
-    printf("Autore: %s", libro->autore);
-    printf("Genere: %s", libro->genere);
-    printf("Anno: %d\n", libro->anno);
-    printf("Prezzo: %.2f\n", libro->prezzo);
-    printf("Copie disponibili: %d\n", libro->copie_disponibili);
-}
 
     
 void ScriviSuFile(Lista *lista)
@@ -77,8 +65,7 @@ void carica_lista(Lista *l)
     char titolo[100], autore[100], genere[100];
 
     // formato CSV: id,titolo,autore,genere,anno,prezzo
-    while (fscanf(f, "%d,%99[^,],%99[^,],%99[^,],%d,%f\n",
-                  &id, titolo, autore, genere, &anno, &prezzo) == 6)
+    while (fscanf(f, "%d,%99[^,],%99[^,],%99[^,],%d,%f\n",&id, titolo, autore, genere, &anno, &prezzo) == 6)
     {
         Libro *c = (Libro*)malloc(sizeof(Libro));
         c->id = id;
@@ -89,7 +76,6 @@ void carica_lista(Lista *l)
         strcpy(c->genere, genere);
         c->next = l->testa;
         c->prev = NULL;
-        c->next_playlist = NULL;
         if (l->testa != NULL)
             l->testa->prev = c;
         else
@@ -111,16 +97,17 @@ Lista* crea_lista()
     return l;
 }
 
-void cercaLibri_ID(Lista *l,int _id)
+int cercaLibri_ID(Lista *l,int _id)
 {
     Libro* temp = l->testa;
     int trovata = 0;
-    printf("Ricerca dei libri con id: %s.......\n", temp->id);
+    printf("Ricerca dei libri con id: %d.......\n", temp->id);
     while (temp != NULL) 
     {
         if (temp->id == _id) 
         {
             trovata = 1;
+            return 1;
         }
         temp = temp->next;
     }
@@ -159,7 +146,7 @@ void selezionaTitolo(Lista* l,char _titolo)
     int trovata = 0;
     while (temp != NULL) 
     {
-        if (temp->titolo == _titolo) 
+        if (strcmp(temp->titolo, _titolo) == 0) 
         {
             trovata=1;
             temp= temp->prev;
@@ -203,7 +190,6 @@ void inserisci_Libro_lista(Lista *l,int _id)
     set_Libro(c,_id);
     c->next = l->testa;
     c->prev = NULL;
-    c->next_playlist = NULL;
     if (l->testa != NULL)
         l->testa->prev = c;
     else
@@ -235,10 +221,10 @@ void cercaTitolo(Lista *l,char _titolo)
 {
     Libro* temp = l->testa;
     int trovata = 0;
-    printf("Ricerca dei libri con id: %s.......\n", temp->id);
+    printf("Ricerca dei libri con id: %d.......\n", temp->id);
     while (temp != NULL) 
     {
-        if (strcmp(temp->titolo == _titolo)==0) 
+        if (strcmp(temp->titolo,_titolo)==0) 
         {
             trovata = 1;
             printf("Libro trovato!!!");
@@ -262,7 +248,7 @@ int stampaAutore(Lista* l,char _autore)
     int id=0;    
     while (temp != NULL) 
     {
-        if(temp->autore==_autore)
+        if(strcmp(temp->autore,&_autore)==0)
         {
             printf("-----------------------------\n");
             printf("Titolo: %s\n",temp->titolo);
@@ -288,7 +274,7 @@ int stampaGenere(Lista* l,char _genere)
     int id=0;    
     while (temp != NULL) 
     {
-        if(temp->genere==_genere)
+        if(strcmp(temp->genere,&_genere)==0)
         {
             printf("-----------------------------\n");
             printf("Titolo: %s\n",temp->titolo);
@@ -369,6 +355,7 @@ void eliminaLibro(Lista* l)
 void modificalibro(Lista* l)
 {
     Libro* temp;
+    int trovato=0;
     int id=0;
     stampLista(l);
     printf("Inseisci l'id del libro da modificare\n");
@@ -379,26 +366,29 @@ void modificalibro(Lista* l)
         if(temp->id==id)
         {
             temp->id = id;
-            printf("---- Inserimento libro con id %d ----\n", c->id);
+            printf("---- Inserimento libro con id %d ----\n", temp->id);
             printf("Inserisci titolo : \n");
-            fgets(c->titolo, 100, stdin);
+            fgets(temp->titolo, 100, stdin);
             printf("Inserisci autore : \n");
-            fgets(c->autore, 100, stdin);
+            fgets(temp->autore, 100, stdin);
             printf("inserisci il genere: \n");
-            fgets(c->genere,100,stdin);
+            fgets(temp->genere,100,stdin);
             printf("inserisci anno di pubblicazione: \n");
-            scanf("%d", &c->anno);
+            scanf("%d", &temp->anno);
             getchar();
             printf("Inserisci prezzo del libro: ");
-            scanf("%f",&c->prezzo);
+            scanf("%f",&temp->prezzo);
             getchar();
             printf("Inserisci numero di copie disponibili: ");
-            scanf("%d",&c->copie_disponibili);
+            scanf("%d",&temp->copie_disponibili);
             getchar();
+            trovato=1;
         }
         else
-            printf("Libro non trovato");
+            temp=temp->next;
     }
+    if(trovato==0)
+        printf("Libro non trovato");
     
     
     

@@ -22,6 +22,24 @@
                 "isDefault": true
             },
             "detail": "Attività generata dal debugger."
+        },
+        {
+            "type": "cppbuild",
+            "label": "build main",
+            "command": "/usr/bin/gcc",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${workspaceFolder}/Gestlib/src/main.c",
+                "-o",
+                "${workspaceFolder}/Gestlib/src/main"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}/Gestlib/src"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ],
     "version": "2.0.0"
