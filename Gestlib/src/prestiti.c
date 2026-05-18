@@ -29,7 +29,7 @@ ListaPrestiti* crea_lista_prestiti() {
     return lp;
 }
 
-void nuovoprestito(ListaPrestiti *lista_prestiti) {
+void nuovoprestito(Prestito *prestito, ListaPrestiti *lista_prestiti, ListaLibri *lista_libri) {
     printf("utente che prende in prestito: \n");
     char utente[50];
     scanf("%s",utente);
@@ -44,21 +44,21 @@ void nuovoprestito(ListaPrestiti *lista_prestiti) {
         char nome[100];
         scanf("%s",nome);
         getchar();
-        libro = cercaLibroPerNome(nome);
+        libro = cercaLibroPerNomePrestiti(lista_libri, nome);
     }
     else if(strcmp(scelta,"id")==0){
         printf("inserisci l'id del libro: \n");
         int id;
         scanf("%d",&id);
         getchar();
-        libro = cercaLibroPerID(id);
+        libro = cercaLibroPerIDPrestiti(lista_libri, id);
     }
     else if(strcmp(scelta,"autore")==0){
         printf("inserisci l'autore del libro: \n");
         char autore[100];
         scanf("%s",autore);
         getchar();
-        libro = cercaLibroPerAutore(autore);
+        libro = cercaLibroPerAutorePrestiti(lista_libri, autore);
     }
     else{
         printf("scelta non valida\n");
@@ -129,4 +129,55 @@ void controllaPrestitiScaduti(ListaPrestiti *lista_prestiti, Lista *libri) {
         }
         temp = temp->next;
     }
+}
+
+Libro* cercaLibroPerNomePrestiti(ListaLibri* lista_libri, char* nome) {
+    if (lista_libri == NULL || lista_libri->testa == NULL) {
+        return NULL;
+    }
+
+    Libro* current = lista_libri->testa;
+
+    while (current != NULL) {
+        if (strcmp(current->nome, nome) == 0) {
+            return current;
+        }
+        current = current->next; 
+    }
+    // Se non troviamo il libro, restituiamo NULL
+    return NULL; 
+}
+
+Libro* cercaLibroPerIDPrestiti(ListaLibri* lista_libri, int id) {
+    if (lista_libri == NULL || lista_libri->testa == NULL) {
+        return NULL;
+    }
+
+    Libro* current = lista_libri->testa;
+
+    while (current != NULL) {
+        if (current->id == id) {
+            return current;
+        }
+        current = current->next;
+    }
+
+    return NULL; 
+}
+
+Libro* cercaLibroPerAutorePrestiti(ListaLibri* lista_libri, const char* autore) {
+    if (lista_libri == NULL || lista_libri->testa == NULL) {
+        return NULL;
+    }
+
+    Libro* current = lista_libri->testa;
+
+    while (current != NULL) {
+        if (strcmp(current->autore, autore) == 0) {
+            return current; 
+        }
+        current = current->next;
+    }
+
+    return NULL; // Libro non trovato
 }
