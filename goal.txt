@@ -1,4 +1,0 @@
-in questo file scriviamo le principal funzioni 
-in modo da definire la struttura del project 
-
-    -
