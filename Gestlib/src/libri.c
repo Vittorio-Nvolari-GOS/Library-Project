@@ -139,7 +139,7 @@ void selezionaID(Lista* l,int _id)
         printf("Libro non trovato");
 }
 
-void selezionaTitolo(Lista* l,char _titolo)
+void selezionaTitolo(Lista* l,char* _titolo)
 {
     Libro* temp = l->testa;
     Libro* temp2;
@@ -217,7 +217,7 @@ void stampLista(Lista *l)
     
 }
 
-void cercaTitolo(Lista *l,char _titolo)
+void cercaTitolo(Lista *l,char* _titolo)
 {
     Libro* temp = l->testa;
     int trovata = 0;
@@ -238,17 +238,17 @@ void cercaTitolo(Lista *l,char _titolo)
         }
         temp = temp->next;
     }
-    if(trovata == 0) 
-        return 0;
+    if(trovata == 0)
+        return;
 }
 
-int stampaAutore(Lista* l,char _autore)
+int stampaAutore(Lista* l,char* _autore)
 {
     Libro* temp = l->testa;
-    int id=0;    
-    while (temp != NULL) 
+    int id=0;
+    while (temp != NULL)
     {
-        if(strcmp(temp->autore,&_autore)==0)
+        if(strcmp(temp->autore,_autore)==0)
         {
             printf("-----------------------------\n");
             printf("Titolo: %s\n",temp->titolo);
@@ -268,13 +268,13 @@ int stampaAutore(Lista* l,char _autore)
     return id;
 }
 
-int stampaGenere(Lista* l,char _genere)
+int stampaGenere(Lista* l,char* _genere)
 {
     Libro* temp = l->testa;
-    int id=0;    
-    while (temp != NULL) 
+    int id=0;
+    while (temp != NULL)
     {
-        if(strcmp(temp->genere,&_genere)==0)
+        if(strcmp(temp->genere,_genere)==0)
         {
             printf("-----------------------------\n");
             printf("Titolo: %s\n",temp->titolo);

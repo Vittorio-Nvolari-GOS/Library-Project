@@ -22,6 +22,10 @@ typedef struct ListaPrestiti {
 
 ListaPrestiti* lista_prestiti;
 
+Libro* cercaLibroPerNomePrestiti(Lista* lista_libri, char* nome);
+Libro* cercaLibroPerIDPrestiti(Lista* lista_libri, int id);
+Libro* cercaLibroPerAutorePrestiti(Lista* lista_libri, const char* autore);
+
 ListaPrestiti* crea_lista_prestiti() {
     ListaPrestiti* lp = (ListaPrestiti*)malloc(sizeof(ListaPrestiti));
     lp->lunghezza = 0;
@@ -29,7 +33,7 @@ ListaPrestiti* crea_lista_prestiti() {
     return lp;
 }
 
-void nuovoprestito(Prestito *prestito, ListaPrestiti *lista_prestiti, ListaLibri *lista_libri) {
+void nuovoprestito(Prestito *prestito, ListaPrestiti *lista_prestiti, Lista *lista_libri) {
     printf("utente che prende in prestito: \n");
     char utente[50];
     scanf("%s",utente);
@@ -131,7 +135,7 @@ void controllaPrestitiScaduti(ListaPrestiti *lista_prestiti, Lista *libri) {
     }
 }
 
-Libro* cercaLibroPerNomePrestiti(ListaLibri* lista_libri, char* nome) {
+Libro* cercaLibroPerNomePrestiti(Lista* lista_libri, char* nome) {
     if (lista_libri == NULL || lista_libri->testa == NULL) {
         return NULL;
     }
@@ -139,7 +143,7 @@ Libro* cercaLibroPerNomePrestiti(ListaLibri* lista_libri, char* nome) {
     Libro* current = lista_libri->testa;
 
     while (current != NULL) {
-        if (strcmp(current->nome, nome) == 0) {
+        if (strcmp(current->titolo, nome) == 0) {
             return current;
         }
         current = current->next; 
@@ -148,7 +152,7 @@ Libro* cercaLibroPerNomePrestiti(ListaLibri* lista_libri, char* nome) {
     return NULL; 
 }
 
-Libro* cercaLibroPerIDPrestiti(ListaLibri* lista_libri, int id) {
+Libro* cercaLibroPerIDPrestiti(Lista* lista_libri, int id) {
     if (lista_libri == NULL || lista_libri->testa == NULL) {
         return NULL;
     }
@@ -165,7 +169,7 @@ Libro* cercaLibroPerIDPrestiti(ListaLibri* lista_libri, int id) {
     return NULL; 
 }
 
-Libro* cercaLibroPerAutorePrestiti(ListaLibri* lista_libri, const char* autore) {
+Libro* cercaLibroPerAutorePrestiti(Lista* lista_libri, const char* autore) {
     if (lista_libri == NULL || lista_libri->testa == NULL) {
         return NULL;
     }

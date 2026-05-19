@@ -5,7 +5,7 @@ ListaPrestiti* crea_lista_prestiti();
     Descrizione: Questa funzione crea e inizializza una nuova lista di prestiti, impostando la lunghezza a 0 e la testa a NULL,
     e restituisce un puntatore a questa lista.     
  */
-void nuovoprestito(ListaPrestiti *lista_prestiti);
+void nuovoprestito(Prestito *prestito, ListaPrestiti *lista_prestiti, Lista *lista_libri);
 /*
     @param: lista_prestiti - un puntatore alla lista dei prestiti
     @return: nessuno
@@ -36,6 +36,36 @@ void controllaPrestitiScaduti(ListaPrestiti *lista_prestiti, Lista *libri);
     Scorre la lista dei prestiti e confronta la data di scadenza di ogni prestito con la data corrente.
     Se un prestito è scaduto, stampa un messaggio di avviso con il nome dell'utente e il titolo del libro.
 
+ */
+
+Libro* cercaLibroPerNomePrestiti(Lista* lista_libri, char* nome);
+/*
+    @param: lista_libri - un puntatore alla lista dei libri
+    @param: nome - il titolo del libro da cercare
+    @return: un puntatore al libro trovato, NULL se non trovato
+    Descrizione: Questa funzione scorre la lista dei libri e restituisce il puntatore
+    al primo libro il cui titolo corrisponde al nome passato come parametro.
+    Se la lista è vuota o nessun libro corrisponde, restituisce NULL.
+ */
+
+Libro* cercaLibroPerIDPrestiti(Lista* lista_libri, int id);
+/*
+    @param: lista_libri - un puntatore alla lista dei libri
+    @param: id - l'identificativo del libro da cercare
+    @return: un puntatore al libro trovato, NULL se non trovato
+    Descrizione: Questa funzione scorre la lista dei libri e restituisce il puntatore
+    al libro il cui id corrisponde a quello passato come parametro.
+    Se la lista è vuota o nessun libro corrisponde, restituisce NULL.
+ */
+
+Libro* cercaLibroPerAutorePrestiti(Lista* lista_libri, const char* autore);
+/*
+    @param: lista_libri - un puntatore alla lista dei libri
+    @param: autore - l'autore del libro da cercare
+    @return: un puntatore al libro trovato, NULL se non trovato
+    Descrizione: Questa funzione scorre la lista dei libri e restituisce il puntatore
+    al primo libro il cui autore corrisponde a quello passato come parametro.
+    Se la lista è vuota o nessun libro corrisponde, restituisce NULL.
  */
 
 

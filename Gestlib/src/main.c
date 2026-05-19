@@ -86,7 +86,7 @@ void gestioneLibri(Lista* _libri)
             printf("Inserisci l'id del libro\n");
             scanf("%d",&id);
             getchar();
-            if(cercalibri_id()==0)
+            if(cercaLibri_ID(_libri, id)==0)
             {
                 inserisci_Libro_lista(_libri,id);
             }
@@ -188,7 +188,7 @@ void gestionePrestiti(Lista* _libri)
         switch (scelta)
         {
         case 1:
-            nuovoprestito(lista_prestiti);
+            nuovoprestito(NULL, lista_prestiti, _libri);
             break;
         case 2:
             restituzionePrestiti(NULL, lista_prestiti);

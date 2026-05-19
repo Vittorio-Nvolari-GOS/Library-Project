@@ -34,7 +34,7 @@ void selezionaID(Lista* l, int _id);
  * @param char titolo del libro da eliminare
  * @return non restituisce nulla
  */
-void selezionaTitolo(Lista* lista, char _titolo);
+void selezionaTitolo(Lista* lista, char* _titolo);
 
 /** Questa funzione richiede all'utente i dati di un libro e li assegna alla struttura.
  * @param Libro* puntatore al libro da inizializzare
@@ -61,21 +61,21 @@ void stampLista(Lista* lista);
  * @param char titolo del libro da cercare
  * @return non restituisce nulla
  */
-void cercaTitolo(Lista* lista, char _titolo);
+void cercaTitolo(Lista* lista, char* _titolo);
 
 /** Questa funzione stampa tutti i libri di un determinato autore e richiede un ID.
  * @param Lista* puntatore alla lista dei libri
  * @param char autore da cercare
  * @return restituisce l'ID inserito dall'utente
  */
-int stampaAutore(Lista* lista, char _autore);
+int stampaAutore(Lista* lista, char* _autore);
 
 /** Questa funzione stampa tutti i libri di un determinato genere e richiede un ID.
  * @param Lista* puntatore alla lista dei libri
  * @param char genere da cercare
  * @return restituisce l'ID inserito dall'utente
  */
-int stampaGenere(Lista* lista, char _genere);
+int stampaGenere(Lista* lista, char* _genere);
 
 /** Questa funzione gestisce il menu di eliminazione dei libri dalla lista.
  * @param Lista* puntatore alla lista dei libri
